@@ -142,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
         public void takeTurn() {
             if (blockPlayerWin()) {
                 return;
+            }else if(canComputerWin()){
+                return;
             } else {
                 // Otherwise just pick a random square
                 Random rand = new Random();
@@ -178,9 +180,17 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         private boolean canComputerWin() {
-
-            return true;
+            if(gameBoard[1][1]==EMPTY && gameBoard[1][2] == CROSS && gameBoard[1][3] == CROSS) {
+                markSquare(1,1);
+                return true;
+            } else if(gameBoard[1][1]==EMPTY && gameBoard[2][2] == CROSS && gameBoard[3][3] == CROSS) {
+                markSquare(1,1);
+                return true;
+            } else {
+                return false;
+            }
         }
+
 
 
         private void markSquare(int x, int y) {
