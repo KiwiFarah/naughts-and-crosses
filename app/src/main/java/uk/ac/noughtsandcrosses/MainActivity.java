@@ -142,12 +142,21 @@ public class MainActivity extends AppCompatActivity {
         public void takeTurn() {
             if (canComputerWin()) {
                 return;
-            }else if(blockPlayerWin()){
+            } else if (blockPlayerWin()) {
                 return;
-            } else {
-                // Otherwise just pick a random square
+            } else if (gameBoard[2][2] == EMPTY) {  // Center square
+                markSquare(2, 2);
+            } else if (gameBoard[1][1] == EMPTY || gameBoard[1][3] == EMPTY || gameBoard[3][1] == EMPTY || gameBoard[3][3] == EMPTY) { // Corner squares
                 Random rand = new Random();
-
+                int x, y;
+                do {
+                    x = rand.nextInt(3) + 1;
+                    y = rand.nextInt(3) + 1;
+                } while ((x != 1 && x != 3) || (y != 1 && y != 3) || gameBoard[x][y] != EMPTY);
+                markSquare(x, y);
+            } else {
+                // Fallback to random move
+                Random rand = new Random();
                 int a = 1 + rand.nextInt(3);
                 int b = 1 + rand.nextInt(3);
                 while (gameBoard[a][b] != EMPTY) {
