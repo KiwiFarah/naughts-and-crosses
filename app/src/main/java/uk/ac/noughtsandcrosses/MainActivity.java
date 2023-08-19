@@ -180,18 +180,67 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         private boolean canComputerWin() {
-            if(gameBoard[1][1]==EMPTY && gameBoard[1][2] == CROSS && gameBoard[1][3] == CROSS) {
-                markSquare(1,1);
-                return true;
-            } else if(gameBoard[1][1]==EMPTY && gameBoard[2][2] == CROSS && gameBoard[3][3] == CROSS) {
-                markSquare(1,1);
-                return true;
-            } else {
-                return false;
+            // Check rows
+            for (int i = 1; i <= 3; i++) {
+                if ((gameBoard[i][1] == CROSS && gameBoard[i][2] == CROSS && gameBoard[i][3] == EMPTY) ||
+                        (gameBoard[i][1] == CROSS && gameBoard[i][3] == CROSS && gameBoard[i][2] == EMPTY) ||
+                        (gameBoard[i][2] == CROSS && gameBoard[i][3] == CROSS && gameBoard[i][1] == EMPTY)) {
+                    for (int j = 1; j <= 3; j++) {
+                        if (gameBoard[i][j] == EMPTY) {
+                            markSquare(i, j);
+                            return true;
+                        }
+                    }
+                }
             }
+
+            // Check columns
+            for (int j = 1; j <= 3; j++) {
+                if ((gameBoard[1][j] == CROSS && gameBoard[2][j] == CROSS && gameBoard[3][j] == EMPTY) ||
+                        (gameBoard[1][j] == CROSS && gameBoard[3][j] == CROSS && gameBoard[2][j] == EMPTY) ||
+                        (gameBoard[2][j] == CROSS && gameBoard[3][j] == CROSS && gameBoard[1][j] == EMPTY)) {
+                    for (int i = 1; i <= 3; i++) {
+                        if (gameBoard[i][j] == EMPTY) {
+                            markSquare(i, j);
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            // Check the diagonals
+            if ((gameBoard[1][1] == CROSS && gameBoard[2][2] == CROSS && gameBoard[3][3] == EMPTY) ||
+                    (gameBoard[1][1] == CROSS && gameBoard[3][3] == CROSS && gameBoard[2][2] == EMPTY) ||
+                    (gameBoard[2][2] == CROSS && gameBoard[3][3] == CROSS && gameBoard[1][1] == EMPTY)) {
+                if (gameBoard[1][1] == EMPTY) {
+                    markSquare(1, 1);
+                    return true;
+                } else if (gameBoard[2][2] == EMPTY) {
+                    markSquare(2, 2);
+                    return true;
+                } else if (gameBoard[3][3] == EMPTY) {
+                    markSquare(3, 3);
+                    return true;
+                }
+            }
+
+            if ((gameBoard[1][3] == CROSS && gameBoard[2][2] == CROSS && gameBoard[3][1] == EMPTY) ||
+                    (gameBoard[1][3] == CROSS && gameBoard[3][1] == CROSS && gameBoard[2][2] == EMPTY) ||
+                    (gameBoard[2][2] == CROSS && gameBoard[3][1] == CROSS && gameBoard[1][3] == EMPTY)) {
+                if (gameBoard[1][3] == EMPTY) {
+                    markSquare(1, 3);
+                    return true;
+                } else if (gameBoard[2][2] == EMPTY) {
+                    markSquare(2, 2);
+                    return true;
+                } else if (gameBoard[3][1] == EMPTY) {
+                    markSquare(3, 1);
+                    return true;
+                }
+            }
+
+            return false;
         }
-
-
 
         private void markSquare(int x, int y) {
             squares[x][y].setEnabled(false);
