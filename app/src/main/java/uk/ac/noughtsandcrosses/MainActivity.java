@@ -140,9 +140,9 @@ public class MainActivity extends AppCompatActivity {
 
     private class ComputerPlayer {
         public void takeTurn() {
-            if (blockPlayerWin()) {
+            if (canComputerWin()) {
                 return;
-            }else if(canComputerWin()){
+            }else if(blockPlayerWin()){
                 return;
             } else {
                 // Otherwise just pick a random square
