@@ -177,6 +177,10 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         }
+        private boolean canComputerWin() {
+
+            return true;
+        }
 
 
         private void markSquare(int x, int y) {
